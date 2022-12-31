@@ -14,3 +14,4 @@ class Planet(BaseModel):
 class Empire(BaseModel):
     countdown: int
     bounty_hunters: list[Planet]
+    
