@@ -1,69 +1,73 @@
 from mfc.models import MilleniumFalcon, Empire
-from pathlib import Path
+from mfc.state import State, Action, Wait, Travel
 from mfc.routes import Routes
-from pydantic import BaseModel
+from typing import Optional
 
-class Action:
-    pass
+class Node:
+    def __init__(self, parent : Optional["Node"], children: list["Node"], state: State, action:Optional[Action]) -> None:
+        self.parent = parent
+        self.children = children
+        self.state = state
+        self.action = action
 
-class Wait(Action):
-    pass
+    def add_child(self, node : "Node"):
+        self.children.append(node)
 
-class Travel(Action):
-    def __init__(self, destination: str):
-        self.destination = destination
-
-class State():
-    current_planet : str
-    day : int
-    autonomy : int
-    mf : MilleniumFalcon
-    routes : Routes
-
-    def __init__(self, 
-        current_planet : str,
-        day : int,
-        autonomy : int,
-        mf : MilleniumFalcon,
-        routes : Routes):
-
-        self.current_planet = current_planet
-        self.day = day
-        self.autonomy = autonomy
-        self.mf = mf
-        self.routes = routes
-    
-    def __str__(self) -> str:
-        return str(self.__dict__)
-
-    def apply_action(self, action: Action) -> None:
-        match action:
-            case Wait():
-                self.autonomy = self.mf.autonomy
-                self.day += 1
-            case Travel(destination=destination):
-                print("Travel", destination)
-                distance = self.routes.get_travel_time(self.current_planet, destination)
-                self.autonomy -= distance
-                self.day += distance
-                self.current_planet = destination
-            case _:
-                print("Unknown action")
+def get_path(node : Node) -> list[Node]:
+    path = [node]
+    while node.parent:
+        path.append(node.parent)
+        node = node.parent
+    path.reverse()
+    return path
 
 def solve(mf: MilleniumFalcon, empire: Empire) -> float:
+    paths = []
     routes = Routes(mf.routes_db)
-    print(routes.get_travel_time("Tatooine", "Dagobah"))
+    initial_state = State(current_planet=mf.departure, day=0, autonomy=mf.autonomy, mf=mf, empire=empire, routes=routes)
+    initial_node = Node(None, [], initial_state, None)
 
-    s = State(current_planet="Tatooine", day=0, autonomy=mf.autonomy, mf=mf, routes=routes)
-    print(s)
-    s.apply_action(Travel("Dagobah"))
-    print(s)
-    s.apply_action(Wait())
-    print(s)
+    stack = []
+    discovered = set()
+    stack.append(initial_node)
+    while stack:
+        node = stack.pop()
+        if node not in discovered:
+            discovered.add(node)
+            
+            available_actions = node.state.available_actions()
+            if not available_actions:
+                if node.state.current_planet == node.state.mf.arrival:
+                    path = get_path(node)
+                    paths.append(path)
 
+            for action in available_actions:
+                new_state = node.state.copy()
+                new_state.apply_action(action)
+                new_node = Node(node, [], new_state, action)
+                node.add_child(new_node)
+                stack.append(new_node)
 
+    return paths
 
+def get_number_of_encounters (path : list[Node]) -> float:
+    nb_encounters = 0
 
+    
+    for node in path:
+        print (node.state.empire.bounty_hunters)
+        exit()
+        if node.state.current_planet in node.state.empire.bounty_hunters:
+            if node.state.empire.bounty_hunters[node.state.current_planet] == node.state.day:
+                nb_encounters += 1
+    return nb_encounters
+
+def calculate_probability(nb_encounters : int):
+    if nb_encounters == 0:
+        return 100
+    return round(
+        (1 - sum((pow(9, i)) / (pow(10, i + 1)) for i in range(0, nb_encounters + 1))) * 100, 2
+    )
 
 
 
