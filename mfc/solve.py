@@ -31,7 +31,7 @@ def get_path(node: Node) -> list[Node]:
     return path
 
 
-def solve(mf: MilleniumFalcon, empire: Empire) -> list[list[Node]]:
+def solve(mf: MilleniumFalcon, empire: Empire) -> tuple[list[Node], float]:
     paths = []
     routes = Routes(mf.routes_db)
     initial_state = State(
@@ -65,7 +65,16 @@ def solve(mf: MilleniumFalcon, empire: Empire) -> list[list[Node]]:
                 node.add_child(new_node)
                 stack.append(new_node)
 
-    return paths
+    max_proba = 0.0
+    best_path = []
+
+    for path in paths:
+        current_proba = calculate_probability(get_number_of_encounters(path))
+        if max_proba < current_proba:
+            max_proba = current_proba
+            best_path = path
+
+    return best_path, max_proba
 
 
 def get_number_of_encounters(path: list[Node]) -> int:
