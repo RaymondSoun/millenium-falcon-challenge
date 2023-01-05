@@ -1,20 +1,24 @@
-from pydantic import BaseModel, validator, parse_obj_as
-from pathlib import Path
 from collections import defaultdict
+from pathlib import Path
+
+from pydantic import BaseModel, parse_obj_as, validator
+
 
 class MilleniumFalcon(BaseModel):
     autonomy: int
-    departure : str
+    departure: str
     arrival: str
-    routes_db : Path
+    routes_db: Path
+
 
 class BountyHunter(BaseModel):
     planet: str
     day: int
 
+
 class Empire(BaseModel):
     countdown: int
-    
+
     bounty_hunters: dict[str, list[int]]
 
     @validator("bounty_hunters", pre=True)

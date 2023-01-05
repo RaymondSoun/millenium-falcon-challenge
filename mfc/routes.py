@@ -1,7 +1,8 @@
-from pathlib import Path
 import sqlite3
 from collections import defaultdict
+from pathlib import Path
 from typing import Iterable
+
 
 class Routes:
     def __init__(self, database_file: Path) -> None:
@@ -14,19 +15,17 @@ class Routes:
         self.routes = defaultdict(dict)
         for row in rows:
             self.routes[row[0]][row[1]] = row[2]
-        
 
     def get_possible_destinations(self, origin: str) -> Iterable:
         if origin not in self.routes:
             raise Exception(f"Unknown origin planet: {origin}")
-        
-        return self.routes[origin].keys()
 
+        return self.routes[origin].keys()
 
     def get_travel_time(self, origin: str, arrival: str) -> int:
         if origin not in self.routes:
             raise Exception(f"Unknown origin planet: {origin}")
-        
+
         reachable_routes = self.routes[origin]
         if arrival not in reachable_routes:
             raise Exception(f"Unknown destination planet: {arrival}")
