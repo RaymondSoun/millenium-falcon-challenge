@@ -21,7 +21,7 @@ def get_path(node : Node) -> list[Node]:
     path.reverse()
     return path
 
-def solve(mf: MilleniumFalcon, empire: Empire) -> float:
+def solve(mf: MilleniumFalcon, empire: Empire) -> list[list[Node]]:
     paths = []
     routes = Routes(mf.routes_db)
     initial_state = State(current_planet=mf.departure, day=0, autonomy=mf.autonomy, mf=mf, empire=empire, routes=routes)
@@ -50,7 +50,7 @@ def solve(mf: MilleniumFalcon, empire: Empire) -> float:
 
     return paths
 
-def get_number_of_encounters (path : list[Node]) -> float:
+def get_number_of_encounters (path : list[Node]) -> int:
     nb_encounters = 0
 
     for node in path:
@@ -61,13 +61,10 @@ def get_number_of_encounters (path : list[Node]) -> float:
 
     return nb_encounters
 
-def calculate_probability(nb_encounters : int):
+def calculate_probability(nb_encounters : int) -> float:
     if nb_encounters == 0:
         return 100
     return round(
         (1 - sum((pow(9, i)) / (pow(10, i + 1)) for i in range(0, nb_encounters))) * 100, 2
     )
-
-
-
 

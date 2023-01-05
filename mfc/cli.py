@@ -23,9 +23,11 @@ def print_path(path : list[Node]):
 def mfc(millenium_falcon_file : Path, empire_file : Path):
     '''Calculate the optimal probability to reach the final planet.'''
     if not millenium_falcon_file.is_file():
-        raise typer.Exit(f"File: {millenium_falcon_file} does not exist")
+        print(f"File: {millenium_falcon_file} does not exist")
+        raise typer.Exit(1)
     if not empire_file.is_file():
-        raise typer.Exit(f"File: {empire_file} does not exist")
+        print(f"File: {empire_file} does not exist")
+        raise typer.Exit(1)
     
     try:
         mf = MilleniumFalcon.parse_file(millenium_falcon_file)
