@@ -53,20 +53,19 @@ def solve(mf: MilleniumFalcon, empire: Empire) -> float:
 def get_number_of_encounters (path : list[Node]) -> float:
     nb_encounters = 0
 
-    
     for node in path:
-        print (node.state.empire.bounty_hunters)
-        exit()
-        if node.state.current_planet in node.state.empire.bounty_hunters:
-            if node.state.empire.bounty_hunters[node.state.current_planet] == node.state.day:
-                nb_encounters += 1
+        days = node.state.empire.bounty_hunters.get(node.state.current_planet, [])
+
+        if node.state.day in days :
+            nb_encounters += 1
+
     return nb_encounters
 
 def calculate_probability(nb_encounters : int):
     if nb_encounters == 0:
         return 100
     return round(
-        (1 - sum((pow(9, i)) / (pow(10, i + 1)) for i in range(0, nb_encounters + 1))) * 100, 2
+        (1 - sum((pow(9, i)) / (pow(10, i + 1)) for i in range(0, nb_encounters))) * 100, 2
     )
 
 

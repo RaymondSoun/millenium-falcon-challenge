@@ -1,5 +1,6 @@
 from pydantic import BaseModel, validator, parse_obj_as
 from pathlib import Path
+from collections import defaultdict
 
 class MilleniumFalcon(BaseModel):
     autonomy: int
@@ -14,11 +15,14 @@ class BountyHunter(BaseModel):
 class Empire(BaseModel):
     countdown: int
     
-    bounty_hunters: dict[str, int]
+    bounty_hunters: dict[str, list[int]]
 
     @validator("bounty_hunters", pre=True)
     def validate_bounty_hunters(cls, v: list[dict]):
         bounty_hunters = parse_obj_as(list[BountyHunter], v)
-        return {
-            bounty_hunter.planet: bounty_hunter.day for bounty_hunter in bounty_hunters
-        }
+        new_bounty_hunters = defaultdict(set)
+
+        for bounty_hunter in bounty_hunters:
+            new_bounty_hunters[bounty_hunter.planet].add(bounty_hunter.day)
+
+        return new_bounty_hunters

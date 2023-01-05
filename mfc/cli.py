@@ -31,9 +31,12 @@ def mfc(millenium_falcon_file : Path, empire_file : Path):
         mf = MilleniumFalcon.parse_file(millenium_falcon_file)
         empire = Empire.parse_file(empire_file)
         paths = solve(mf, empire)
+        max_proba = 0
         for path in paths:
-            print_path(path)
-            print(calculate_probability(get_number_of_encounters(path)))
+            current_proba = calculate_probability(get_number_of_encounters(path))
+            if max_proba < current_proba:
+                max_proba = current_proba
+        print(max_proba)
     except ValidationError as err:
         print(err)
     
