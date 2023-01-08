@@ -4,6 +4,7 @@ import typer
 from pydantic import ValidationError
 
 from mfc.models import Empire, MilleniumFalcon
+from mfc.server import app as flask_app
 from mfc.solve import Node, calculate_probability, get_number_of_encounters, solve
 from mfc.state import Travel, Wait
 
@@ -23,8 +24,8 @@ def print_path(path: list[Node]):
                 raise Exception("Unknown action")
 
 
-@app.command()
-def mfc(millenium_falcon_file: Path, empire_file: Path):
+@app.command(name="solve")
+def solve_cmd(millenium_falcon_file: Path, empire_file: Path):
     """Calculate the optimal probability to reach the final planet."""
     if not millenium_falcon_file.is_file():
         print(f"File: {millenium_falcon_file} does not exist")
@@ -40,3 +41,9 @@ def mfc(millenium_falcon_file: Path, empire_file: Path):
         print(proba)
     except ValidationError as err:
         print(err)
+
+
+@app.command(name="serve")
+def serve_cmd():
+    """Starts the http server"""
+    flask_app.run()

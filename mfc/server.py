@@ -1,3 +1,4 @@
+import pkg_resources
 from flask import Flask, request
 from flask_cors import CORS
 from pydantic import ValidationError
@@ -9,10 +10,13 @@ ALLOWED_EXTENSIONS = {"json"}
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-# app.secret_key = b"J\x14bM,P\xa3\xc9\xf5#j%\xb8<\x1fav\xfa\xb2\xc2\x9fY\xcev"
 
 CORS(app, resources={r"/*": {"origins": "*"}})
-MILLENIUM_FALCON = MilleniumFalcon.parse_file("./data/millennium-falcon.json")
+
+resource_package = __name__
+resource_path = "/".join(("data", "millennium-falcon.json"))
+millenium_falcon_file = pkg_resources.resource_filename(resource_package, resource_path)
+MILLENIUM_FALCON = MilleniumFalcon.parse_file(millenium_falcon_file)
 
 
 @app.route("/calculate", methods=["POST"])
