@@ -11,8 +11,6 @@ app.config.from_object(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# MILLENIUM_FALCON = app.config["mf"]
-
 
 @app.route("/calculate", methods=["POST"])
 def calculate_odds():
@@ -30,12 +28,6 @@ def calculate_odds():
         "best_path": serialize_best_path(best_path),
         "probability": proba,
     }, 200
-
-
-@app.route("/debug", methods=["GET"])
-def show_config():
-    print(app.config["mf"].routes_db)
-    return str(app.config["mf"].routes_db)
 
 
 def serialize_best_path(path: list[Node]) -> list[dict]:

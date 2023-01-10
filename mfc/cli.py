@@ -67,4 +67,4 @@ def serve_cmd(millenium_falcon_file: Path):
     mf = load_millenium_falcon_file(millenium_falcon_file)
     # os.environ["MILLENIUM"]
     flask_app.config["mf"] = mf
-    flask_app.run()
+    flask_app.run(host="0.0.0.0")
