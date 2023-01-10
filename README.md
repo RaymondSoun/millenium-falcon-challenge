@@ -22,7 +22,7 @@ If you want to use the tool as fast as possible you can launch the following com
 $ docker run -p 5000:5000 --rm -v '<absolute/path/to/folder>':/data/ raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
 ```
 
-Make sure the files in your folder (millennium-falcon.json, empire.json, universe.db)
+Make sure the files are in your folder (millennium-falcon.json, empire.json, universe.db)
 
 ## Web Interface 
 ```
@@ -33,7 +33,7 @@ $ docker run -p 5000:5000 raymond93/millenium-falcon-challenge-back
 $ docker run -p 3000:3000 raymond93/millenium-falcon-challenge-front
 ```
 
-You can access the interface on [http://localhost:3000](http://localhost:3000)
+You can now access the interface on [http://localhost:3000](http://localhost:3000)
 
 
 
@@ -182,7 +182,7 @@ You can use the following sample data to test the app
 
 [empire.json](https://github.com/dataiku/millenium-falcon-challenge/blob/master/examples/example2/empire.json?raw=true)
 
-#What can be improved?
+# What can be improved?
 1. Put a cache in the odds calculation function 
 2. Create a CI using type checkers, unit tests...
 3. Add docstrings
