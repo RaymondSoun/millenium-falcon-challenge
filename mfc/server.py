@@ -6,17 +6,12 @@ from pydantic import ValidationError
 from mfc.models import Empire, MilleniumFalcon
 from mfc.solve import Node, solve
 
-ALLOWED_EXTENSIONS = {"json"}
-
 app = Flask(__name__)
 app.config.from_object(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-resource_package = __name__
-resource_path = "/".join(("data", "millennium-falcon.json"))
-millenium_falcon_file = pkg_resources.resource_filename(resource_package, resource_path)
-MILLENIUM_FALCON = MilleniumFalcon.parse_file(millenium_falcon_file)
+# MILLENIUM_FALCON = app.config["mf"]
 
 
 @app.route("/calculate", methods=["POST"])
@@ -29,12 +24,18 @@ def calculate_odds():
     except ValidationError:
         return {"error": "Invalid empire file"}, 400
 
-    best_path, proba = solve(MILLENIUM_FALCON, empire_data)
+    best_path, proba = solve(app.config["mf"], empire_data)
     return {
         "origin_planet": best_path[0].state.current_planet,
         "best_path": serialize_best_path(best_path),
         "probability": proba,
     }, 200
+
+
+@app.route("/debug", methods=["GET"])
+def show_config():
+    print(app.config["mf"].routes_db)
+    return str(app.config["mf"].routes_db)
 
 
 def serialize_best_path(path: list[Node]) -> list[dict]:
@@ -44,7 +45,3 @@ def serialize_best_path(path: list[Node]) -> list[dict]:
         serialized_node["type"] = type(node.action).__name__
         serialized_path.append(serialized_node)
     return serialized_path
-
-
-if __name__ == "__main__":
-    app.run()
