@@ -72,7 +72,7 @@ The server should now be started with the default settings (millenium falcon fil
 
 ## Install with pip
 
-First, get the package from the latest release [here](https://github.com/RaymondSoun/millenium-falcon-challenge/releases/latest)
+First, get the package (.whl file) from the latest release [here](https://github.com/RaymondSoun/millenium-falcon-challenge/releases/latest)
 
   
 
