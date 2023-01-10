@@ -67,3 +67,11 @@ You can also use the following command if you need help:
 ```
 $ mfc --help
 ```
+## Sample data
+You can use the following sample data to test the app
+
+[universe.db](https://github.com/dataiku/millenium-falcon-challenge/blob/master/examples/example2/universe.db?raw=true)
+
+[millennium-falcon.json](https://github.com/dataiku/millenium-falcon-challenge/blob/master/examples/example2/millennium-falcon.json?raw=true)
+
+[empire.json](https://github.com/dataiku/millenium-falcon-challenge/blob/master/examples/example2/empire.json?raw=true)
