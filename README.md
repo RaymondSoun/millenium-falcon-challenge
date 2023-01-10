@@ -19,18 +19,18 @@ If you want to use the tool as fast as possible you can launch the following com
 ## CLI
 
 ```
-$ docker run -p 5000:5000 --rm -v $(pwd):/data/ raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
+docker run -p 5000:5000 --rm -v $(pwd):/data/ raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
 ```
 
 Make sure millennium-falcon.json, empire.json and universe.db are in your current working directory
 
 ## Web Interface 
 ```
-$ docker run -p 5000:5000 raymond93/millenium-falcon-challenge-back
+docker run -p 5000:5000 raymond93/millenium-falcon-challenge-back
 ```
 
 ```
-$ docker run -p 3000:3000 raymond93/millenium-falcon-challenge-front
+docker run -p 3000:3000 raymond93/millenium-falcon-challenge-front
 ```
 
 You can now access the interface on [http://localhost:3000](http://localhost:3000)
@@ -56,13 +56,13 @@ Run the following commands to install the frontend project with Docker:
 
   
 ```
-$ docker pull raymond93/millenium-falcon-challenge-back
+docker pull raymond93/millenium-falcon-challenge-back
 ```
 
 
 
 ```
-$ docker run -p 5000:5000 raymond93/millenium-falcon-challenge-back
+docker run -p 5000:5000 raymond93/millenium-falcon-challenge-back
 ```
 
   
@@ -79,23 +79,23 @@ First, get the package from the latest release [here](https://github.com/Raymond
 Create a new folder for the project and a virtual environment
 
 ```
-$ mkdir <path/to/project>
+mkdir <path/to/project>
 ```
 
 ```
-$ cd <path/to/project>
+cd <path/to/project>
 ```
 
 Create a virtual environment
 
 ```
-$ python3 -m venv myvenv
+python3 -m venv myvenv
 ```
 
 And activate it:
 
 ```
-$ source myvenv/bin/activate
+source myvenv/bin/activate
 ```
 
   
@@ -103,7 +103,7 @@ $ source myvenv/bin/activate
 Install the package with the following command (the name may change depending on the release version):
 
 ```
-$ pip install mfc-0.1.0-py3-none-any.whl
+pip install mfc-0.1.0-py3-none-any.whl
 ```
 
 # Using the software
@@ -117,18 +117,18 @@ $ pip install mfc-0.1.0-py3-none-any.whl
 To caclulate the odds with the CLI on docker use the following command:
 
 ```
-$ docker run -p 5000:5000 --rm -v '<absolute/path/to/local/empire.json>':/data/empire.json  raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
+docker run -p 5000:5000 --rm -v '<absolute/path/to/local/empire.json>':/data/empire.json  raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
 ```
 You can also provide millennium-falcon.json and a universe.db in a folder like so:
 
 ```
-$ docker run -p 5000:5000 --rm -v '<absolute/path/to/folder>':/data/ raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
+docker run -p 5000:5000 --rm -v '<absolute/path/to/folder>':/data/ raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
 ```
 Make sure the files are named correctly (millennium-falcon.json, empire.json, universe.db)
 
 To start the local web server, you can execute
 ```
-$ docker run -p 5000:5000 --rm -v '<absolute/path/to/folder>':/data/ raymond93/millenium-falcon-challenge-back mfc serve millennium-falcon.json
+docker run -p 5000:5000 --rm -v '<absolute/path/to/folder>':/data/ raymond93/millenium-falcon-challenge-back mfc serve millennium-falcon.json
 ```
 Make sure you include the files named correctly (millennium-falcon.json and universe.db)
 
@@ -140,7 +140,7 @@ To caclulate the odds with the CLI use the following command:
   
 
 ```
-$ mfc solve path/to/millennium-falcon.json path/to/empire.json
+mfc solve path/to/millennium-falcon.json path/to/empire.json
 ```
 
 Make sure that the universe.db in the millennium-falcon.json exists and is correct.
@@ -150,7 +150,7 @@ Make sure that the universe.db in the millennium-falcon.json exists and is corre
 To launch the local web server :
 
 ```
-$ mfc serve path/to/millennium-falcon.json
+mfc serve path/to/millennium-falcon.json
 ```
 
 This will create a basic web server to calculate the odds via a web interface.
@@ -162,7 +162,7 @@ You can also use the following command if you need help:
   
 
 ```
-$ mfc --help
+mfc --help
 ```
 
 
