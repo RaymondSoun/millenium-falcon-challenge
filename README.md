@@ -19,10 +19,10 @@ If you want to use the tool as fast as possible you can launch the following com
 ## CLI
 
 ```
-$ docker run -p 5000:5000 --rm -v '<absolute/path/to/folder>':/data/ raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
+$ docker run -p 5000:5000 --rm -v $(pwd):/data/ raymond93/millenium-falcon-challenge-back mfc solve millennium-falcon.json empire.json
 ```
 
-Make sure the files are in your folder (millennium-falcon.json, empire.json, universe.db)
+Make sure millennium-falcon.json, empire.json and universe.db are in your current working directory
 
 ## Web Interface 
 ```
