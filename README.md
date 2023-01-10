@@ -54,13 +54,13 @@ To caclulate the odds with the CLI use the following command:
 ```
 $ mfc solve path/to/millennium-falcon.json path/to/empire.json
 ```
-Please note that the universe.db in the millennium-falcon.json should be an absolute path. Make sure that this path exists and is correct.
+Make sure that the universe.db in the millennium-falcon.json exists and is correct.
 
 To launch the local web server :
 ```
-$ mfc serve
+$ mfc serve path/to/millennium-falcon.json
 ```
-This will create a basic web server to calculate the odds via a web interface. The millenium-falcon.json file and the universe.db are embedded in the package.
+This will create a basic web server to calculate the odds via a web interface.
 
 You can also use the following command if you need help:
 
