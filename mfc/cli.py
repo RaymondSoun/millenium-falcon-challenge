@@ -5,7 +5,7 @@ from pydantic import ValidationError
 
 from mfc.models import Empire, MilleniumFalcon
 from mfc.server import app as flask_app
-from mfc.solve import Node, calculate_probability, get_number_of_encounters, solve
+from mfc.solve import Node, solve
 from mfc.state import Travel, Wait
 
 app = typer.Typer()
@@ -36,6 +36,11 @@ def solve_cmd(millenium_falcon_file: Path, empire_file: Path):
 
     try:
         mf = MilleniumFalcon.parse_file(millenium_falcon_file)
+        if not mf.routes_db.is_absolute():
+            mf.routes_db = millenium_falcon_file.parent / mf.routes_db
+        if not mf.routes_db.is_file():
+            print(f"File: {mf.routes_db} does not exist")
+            raise typer.Exit(1)
         empire = Empire.parse_file(empire_file)
         _, proba = solve(mf, empire)
         print(proba)
