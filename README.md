@@ -107,7 +107,7 @@ pip install mfc-0.1.0-py3-none-any.whl
 ```
 
 # Using the software
-
+* You can use data in the section Sample Data below *
   
 
 ## Basic commands
