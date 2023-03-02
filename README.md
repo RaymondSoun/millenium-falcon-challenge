@@ -103,7 +103,7 @@ source myvenv/bin/activate
 Install the package with the following command (the name may change depending on the release version):
 
 ```
-pip install mfc-0.1.0-py3-none-any.whl
+pip install mfc-0.1.1-py3-none-any.whl
 ```
 
 # Using the software
