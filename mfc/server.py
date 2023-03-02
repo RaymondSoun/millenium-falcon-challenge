@@ -23,8 +23,13 @@ def calculate_odds():
         return {"error": "Invalid empire file"}, 400
 
     best_path, proba = solve(app.config["mf"], empire_data)
+    if not best_path:
+        origin_planet = ""
+    else:
+        origin_planet = best_path[0].state.current_planet
+
     return {
-        "origin_planet": best_path[0].state.current_planet,
+        "origin_planet": origin_planet,
         "best_path": serialize_best_path(best_path),
         "probability": proba,
     }, 200
