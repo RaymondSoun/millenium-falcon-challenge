@@ -1,7 +1,7 @@
 
 # Millenium Falcon Challenge
 
-  
+This project is a solution to this [challenge](https://github.com/dataiku/millenium-falcon-challenge)
 
 The Death Star - the Empire's ultimate weapon - is almost operational and is currently approaching the Endor planet. The countdown has started.
 
